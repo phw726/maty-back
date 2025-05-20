@@ -1,0 +1,141 @@
+service: maty-backend
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-northeast-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:Query
+        - dynamodb:Scan
+      Resource: 
+        - arn:aws:dynamodb:ap-northeast-2:282318207590:table/CalendarData
+        - arn:aws:dynamodb:ap-northeast-2:282318207590:table/Users
+
+        - arn:aws:dynamodb:ap-northeast-2:282318207590:table/UserPlans
+
+functions:
+  deleteDiary:
+    handler: lambda/deleteDiary/index.handler
+    events:
+      - http:
+          path: diary
+          method: delete
+          cors: true
+
+  deleteSchedule:
+    handler: lambda/deleteSchedule/index.handler
+    events:
+      - http:
+          path: schedule
+          method: delete
+          cors: true
+
+  deleteTodo:
+    handler: lambda/deleteTodo/index.handler
+    events:
+      - http:
+          path: todo
+          method: delete
+          cors: true
+
+  getAllData:
+    handler: lambda/getAllData/index.handler
+    events:
+      - http:
+          path: calendar
+          method: get
+          cors: true
+
+  getDayData:
+    handler: lambda/getDayData/index.handler
+    events:
+      - http:
+          path: calendar/day
+          method: get
+          cors: true
+
+  getUser:
+    handler: lambda/getUser/index.handler
+    events:
+      - http:
+          path: user
+          method: get
+          cors: true
+
+  toggleTodo:
+    handler: lambda/toggleTodo/index.handler
+    events:
+      - http:
+          path: todo/toggle
+          method: post
+          cors: true
+
+  updateDiary:
+    handler: lambda/updateDiary/index.handler
+    events:
+      - http:
+          path: diary
+          method: post
+          cors: true
+
+  updateSchedule:
+    handler: lambda/updateSchedule/index.handler
+    events:
+      - http:
+          path: schedule
+          method: post
+          cors: true
+
+  updateTodo:
+    handler: lambda/updateTodo/index.handler
+    events:
+      - http:
+          path: todo
+          method: post
+          cors: true
+
+  updateUser:
+    handler: lambda/updateUser/index.handler
+    events:
+      - http:
+          path: user
+          method: post
+          cors: true
+
+  getAllPlans:
+    handler: lambda/getAllPlan/index.handler
+    events:
+      - http:
+          path: plan
+          method: get
+          cors: true     
+
+  getPlanById:
+    handler: lambda/getPlanDetail/index.handler
+    events:
+      - http:
+          path: plan/detail
+          method: get
+          cors: true     
+
+  updatePlan:
+    handler: lambda/updatePlan/index.handler
+    events:
+      - http:
+          path: plan
+          method: post
+          cors: true     
+
+  deletePlan:
+    handler: lambda/deletePlan/index.handler
+    events:
+      - http:
+          path: plan
+          method: delete
+          cors: true     

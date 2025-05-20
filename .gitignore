@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# Serverless build output
+.serverless/
+
+# dotenv environment variables
+.env
+.env.*
+
+# system files
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+
+# IDE
+.vscode/
+.idea/
