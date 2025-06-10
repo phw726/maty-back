@@ -1,9 +1,14 @@
 service: maty-backend
 
+plugins:
+  - serverless-dotenv-plugin 
+
 provider:
   name: aws
   runtime: nodejs18.x
   region: ap-northeast-2
+  environment: 
+      OPENAI_API_KEY: ${env:OPENAI_API_KEY}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -16,8 +21,9 @@ provider:
       Resource: 
         - arn:aws:dynamodb:ap-northeast-2:282318207590:table/CalendarData
         - arn:aws:dynamodb:ap-northeast-2:282318207590:table/Users
-
         - arn:aws:dynamodb:ap-northeast-2:282318207590:table/UserPlans
+      
+
 
 functions:
   deleteDiary:
@@ -139,3 +145,11 @@ functions:
           path: plan
           method: delete
           cors: true     
+  
+  ai:
+    handler: lambda/matyAI/index.handler
+    events:
+      - http:
+          path: ai
+          method: post
+          cors: true
